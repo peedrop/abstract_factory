@@ -4,11 +4,13 @@ import org.FabricaCarroPopular;
 
 import org.Carro;
 import org.Montadora;
+import org.Concessionaria;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarroTest {
+
     @Test
     void deveCriarCarroLuxo() {
         FabricaAbstrata fabrica = new FabricaCarroLuxo();
@@ -37,5 +39,33 @@ public class CarroTest {
         Montadora montadora = fabrica.createMontadora();
         Carro carro = montadora.createCarro();
         assertEquals("Carro Popular", carro.descricao());
+    }
+
+    @Test
+    void deveEmitirCarroLuxoNaConcessionaria() {
+        FabricaAbstrata fabrica = new FabricaCarroLuxo();
+        Concessionaria concessionaria = new Concessionaria(fabrica);
+        assertEquals("Carro de Luxo", concessionaria.emitirCarro());
+    }
+
+    @Test
+    void deveEmitirCarroPopularNaConcessionaria() {
+        FabricaAbstrata fabrica = new FabricaCarroPopular();
+        Concessionaria concessionaria = new Concessionaria(fabrica);
+        assertEquals("Carro Popular", concessionaria.emitirCarro());
+    }
+
+    @Test
+    void deveEmitirCarroDaMontadoraFerrariNaConcessionaria() {
+        FabricaAbstrata fabrica = new FabricaCarroLuxo();
+        Concessionaria concessionaria = new Concessionaria(fabrica);
+        assertEquals("Carro de Luxo", concessionaria.emitirCarroDaMontadora());
+    }
+
+    @Test
+    void deveEmitirCarroDaMontadoraFiatNaConcessionaria() {
+        FabricaAbstrata fabrica = new FabricaCarroPopular();
+        Concessionaria concessionaria = new Concessionaria(fabrica);
+        assertEquals("Carro Popular", concessionaria.emitirCarroDaMontadora());
     }
 }
